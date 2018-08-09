@@ -1,6 +1,8 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.24;
 
 contract MainShip {
+
+   uint[] coCount;
 
    address public owner;
 
@@ -16,17 +18,19 @@ contract MainShip {
       owner = msg.sender;
    }
 
-   function IsPlayerExists() public constant returns(bool) {
-      return gamersQueue[msg.sender];
-   }
+   //function IsPlayerExists() public constant returns(bool) {
+   //   return gamersQueue[msg.sender];
+   //}
 
    // запрос на начало новой игры
-   function reqNewGame() public payable {
+   function reqNewGame(uint[] _coCount) public payable {
+      coCount = _coCount;
+      //require(IsPlayerExists);
+   }
 
-      require(IsPlayerExists);
+   function getCount() public constant returns(uint)  {
 
-
-
+      return coCount.length;
    }
 
 
