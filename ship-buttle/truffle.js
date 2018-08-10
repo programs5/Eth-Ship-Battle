@@ -1,7 +1,7 @@
 //require('babel-register');
 //require('babel-polyfill');
 
-//var HDWalletProvider = require("truffle-hdwallet-provider");
+var HDWalletProvider = require("truffle-hdwallet-provider");
 
 module.exports = {
   networks: {
@@ -12,18 +12,14 @@ module.exports = {
       network_id: "*" // Match any network id
     },
 
-    rinkeby: {  // testnet
-      host: "localhost",
-      port: 8547,
-      network_id: 4,
-      gas: 2159825, //4704588, // web3.eth.getBlock("pending").gasLimit // GAS LIMIT value
-      from: "0x937febbc45628f1bb2445f3c569b6b5ff05fed9a"
-
-      //gasPrice: 45000000000,
-
-      //provider: function() {
-      //  return new HDWalletProvider("my own mnemonic", "https://rinkeby.infura.io/kp7Z0DFPGq7d3S2lIKEz")
-      //}
+    rinkeby: {
+      //host: "localhost",
+      //port: 8547,
+      provider: function() {
+        return new HDWalletProvider("recycle series vicious exercise slim keep tool north voice detail length carbon", "https://rinkeby.infura.io/kp7Z0DFPGq7d3S2lIKEz")
+     },
+     from: "0x937febbc45628f1bb2445f3c569b6b5ff05fed9a",
+     network_id: 4
     },
 
     mainnet: {

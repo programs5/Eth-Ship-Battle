@@ -100,16 +100,16 @@ function reqNewGame() {
      }
   ];
 
+  //var contractAddr = "0x717e7e489bac927afae94d98ec34bb4d8c65c89c";
+  var contractAddr = "0x869c252759208689313f450a62512f7174869e5f"; 
+  setLog(`Contract addr: ${contractAddr}`);
+  var contract = new web3.eth.Contract(contractAbi, contractAddr, {from: addressFrom});
 
-   var contract = new web3.eth.Contract(contractAbi, "0xb0b7f8a45e9280a9fa14afb6df73861170a1c6f4", {
-         from: addressFrom
-   });
+  //var rez = contract.methods['getCount(uint)'](123);
+  var rez = contract.methods.getCount();
 
-   //var rez = contract.methods['getCount(uint)'](123);
-   var rez = contract.methods.getCount();
-
-   setLog(String(rez));
-
+  setLog(String(rez));
+  console.log(rez);
 
 
 
@@ -171,7 +171,7 @@ function reqNewGame() {
 <body>
 <br>
 <p><b>Sender Private Key:</b><br>
-   <input type="text" size="65" id="private_key" value="0x985ed8ab5f9011a9394bfe0e9918a2049c95e24a8516889f8874cebf3368793c"></p>
+   <input type="text" size="65" id="private_key" value="0x3a530bdb187e41086da7174b21e03855e2ff25031dcec9946245978c4403d31a"></p>
 <p><b>Payee Address:</b><br>
    <input type="text" size="45" id="payee_address" value="0xb0b7f8a45e9280a9fa14afb6df73861170a1c6f4"></p>
 <p><b>Gas Price:</b><br>

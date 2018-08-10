@@ -16,6 +16,10 @@ contract MainShip {
    // конструктор
    constructor() public {
       owner = msg.sender;
+
+      coCount.push(1024);
+      coCount.push(1023);
+      coCount.push(1022);
    }
 
    //function IsPlayerExists() public constant returns(bool) {
@@ -29,7 +33,6 @@ contract MainShip {
    }
 
    function getCount() public constant returns(uint)  {
-
       return coCount.length;
    }
 
