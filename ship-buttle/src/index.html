@@ -1,187 +1,22 @@
 <html>
 <head>
 <script src="lib/web3.min.js"></script>
-<script src="lib/ethereumjs-tx.js"></script>
-<script>
-
-web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/kp7Z0DFPGq7d3S2lIKEz"));
-//web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Описание функций web3js (1.0) ::    http://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#new-contract
-// JSON RPC ETH ::      https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendrawtransaction
-
-function reqNewGame() {
-
-   var private_key = document.getElementById("private_key").value
-   var payee_address = document.getElementById("payee_address").value
-   var gas_price = document.getElementById("gas_price").value
-   var gas_limit = document.getElementById("gas_limit").value
-   var payment_value = document.getElementById("payment_value").value
-
-   const privKey = private_key
-   const addressFrom = web3.eth.accounts.privateKeyToAccount(`${privKey}`).address
-   const addressTo   = payee_address
-
-   setLog(`Sender Address: ${addressFrom}`)
-
-
-   var contractAbi = [
-     {
-       "constant": true,
-       "inputs": [
-         {
-           "name": "",
-           "type": "address"
-         }
-       ],
-       "name": "gamersQueue",
-       "outputs": [
-         {
-           "name": "amountBet",
-           "type": "uint256"
-         },
-         {
-           "name": "numberSelected",
-           "type": "uint256"
-         }
-       ],
-       "payable": false,
-       "stateMutability": "view",
-       "type": "function"
-     },
-     {
-       "constant": true,
-       "inputs": [],
-       "name": "owner",
-       "outputs": [
-         {
-           "name": "",
-           "type": "address"
-         }
-       ],
-       "payable": false,
-       "stateMutability": "view",
-       "type": "function"
-     },
-     {
-       "inputs": [],
-       "payable": false,
-       "stateMutability": "nonpayable",
-       "type": "constructor"
-     },
-     {
-       "constant": false,
-       "inputs": [
-         {
-           "name": "_coCount",
-           "type": "uint256[]"
-         }
-       ],
-       "name": "reqNewGame",
-       "outputs": [],
-       "payable": true,
-       "stateMutability": "payable",
-       "type": "function"
-     },
-     {
-       "constant": true,
-       "inputs": [],
-       "name": "getCount",
-       "outputs": [
-         {
-           "name": "",
-           "type": "uint256"
-         }
-       ],
-       "payable": false,
-       "stateMutability": "view",
-       "type": "function"
-     }
-  ];
-
-  //var contractAddr = "0x717e7e489bac927afae94d98ec34bb4d8c65c89c";
-  var contractAddr = "0x869c252759208689313f450a62512f7174869e5f"; 
-  setLog(`Contract addr: ${contractAddr}`);
-  var contract = new web3.eth.Contract(contractAbi, contractAddr, {from: addressFrom});
-
-  //var rez = contract.methods['getCount(uint)'](123);
-  var rez = contract.methods.getCount();
-
-  setLog(String(rez));
-  console.log(rez);
-
-
-
-
-   /*
-   web3.eth.getTransactionCount(addressFrom).then( txCount => {
-
-         var txData = {
-               from: addressFrom,
-               to: addressTo,
-               value:  web3.utils.toHex(web3.utils.toWei(payment_value, "ether")),
-               nonce: web3.utils.toHex(txCount),
-               data: '0x00',
-               gasPrice: gas_price, //1000000000,
-               gasLimit: gas_limit, //100000,
-               gas:100000 //,
-               //chainId: 4 //Rinkeby
-         }
-         const tx = new EthJS.Tx(txData)
-         const rawTx = `0x${tx.serialize().toString('hex')}`
-
-         setLog(`Signed Transaction: ${rawTx}`)
-
-         web3.eth.sendSignedTransaction(rawTx)
-
-         .once('transactionHash', hash => {
-            setLog(`Payment Transaction Hash: ${hash}`)
-         })
-         .then( res => {
-            setLog("Success Result Payment:")
-            setLog(res)
-         }, error => {
-               setLog(error.message)
-               console.log(error)
-            }
-         )
-   })
-   */
-
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-   function setLog(message) {
-      var current = new Date()
-      var tm = "[" + current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds() + "." + current.getMilliseconds() + "] "
-
-      if (typeof message == 'object') {
-         log.innerHTML += (JSON && JSON.stringify ? tm + JSON.stringify(message) : tm + message) + '<br />'
-      }
-      else {
-         log.innerHTML += tm + message + '<br />'
-      }
-   }
-
-
-}
-
-</script>
+<script src="ship.js"></script>
 </head>
 <body>
 <br>
 <p><b>Sender Private Key:</b><br>
-   <input type="text" size="65" id="private_key" value="0x3a530bdb187e41086da7174b21e03855e2ff25031dcec9946245978c4403d31a"></p>
-<p><b>Payee Address:</b><br>
-   <input type="text" size="45" id="payee_address" value="0xb0b7f8a45e9280a9fa14afb6df73861170a1c6f4"></p>
-<p><b>Gas Price:</b><br>
-   <input type="text" size="10" id="gas_price" value="1000000000"></p>
-<p><b>Gas Limit:</b><br>
-   <input type="text" size="10" id="gas_limit" value="100000"></p>
+   <input type="text" size="75" id="private_key" value="0x3a530bdb187e41086da7174b21e03855e2ff25031dcec9946245978c4403d31a"></p>
+
+<p><b>Contract Address:</b><br>
+   <input type="text" size="45" id="contract_address" value="0xa6d39745dbc028f79e7975ee23034f9840be6f0d"></p>
+
 <p><b>Value (ETH):</b><br>
-   <input type="text" size="10" id="payment_value" value="0.002"></p>
+   <input type="text" size="10" id="payment_value" value="0"></p>
 
 <button onClick="reqNewGame()">reqNewGame</button>
+<br><br>
+<button onClick="readData()">readData</button>
 
 <br><br>
 <div style="color:green" id="log"/>
