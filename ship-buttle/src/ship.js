@@ -1,6 +1,3 @@
-// Описание функций web3js (1.0) ::    http://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#new-contract
-// JSON RPC ETH ::      https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendrawtransaction
-
 web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/kp7Z0DFPGq7d3S2lIKEz"));
 
 var payment_value;
@@ -9,6 +6,8 @@ var privKey;
 var addressFrom;
 var contract;
 var contractAbi;
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 window.onload = function() {
     payment_value    = document.getElementById("payment_value").value
@@ -114,10 +113,14 @@ function reqNewGame() {
           nonce: web3.utils.toHex(txCount),
           gas: 1000000 //web3.utils.toHex(3000000000)
       }
+
       web3.eth.accounts.signTransaction(tx, privKey)
       .then(signed => {
+
           web3.eth.sendSignedTransaction(signed.rawTransaction)
-          .on('receipt', res => {console.log(res)})
+          .on('receipt', res => {
+              console.log(res)
+          })
       })
   })
 }
