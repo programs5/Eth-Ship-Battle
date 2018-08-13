@@ -13,8 +13,6 @@ module.exports = {
     },
 
     rinkeby: {
-      //host: "localhost",
-      //port: 8547,
       provider: function() {
         return new HDWalletProvider("recycle series vicious exercise slim keep tool north voice detail length carbon", "https://rinkeby.infura.io/kp7Z0DFPGq7d3S2lIKEz")
      },
