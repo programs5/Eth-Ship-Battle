@@ -1,7 +1,17 @@
 
 **Набор инструментов:**
+***
+* [Truffle, Ganache, Drizzle](https://truffleframework.com/docs)   
+`$ truffle init`  
+`$ truffle compile --network rinkeby`  
+`$ truffle migrate [--reset] [-f <number>] [--network <name>] [--compile-all] [--verbose-rpc]`  
+`$ truffle test <test_file> [--compile-all] [--network <name>] [--verbose-rpc]`
 
-* [Truffle, Ganache, Drizzle](https://truffleframework.com/docs)
+  `$ truffle create (contract|migration|test) <ArtifactName>`  
+  `$ truffle debug <transaction_hash>`  
+  `$ truffle console --network rinkeby`  
+  `$ truffle networks [--clean]`  
+  `$ truffle opcode <contract_name>`
 
 * [Solidity v0.4.24](http://solidity.readthedocs.io/en/v0.4.24/index.html)
 
@@ -9,8 +19,8 @@
 
 * [JSON RPC ETH](https://github.com/ethereum/wiki/wiki/JSON-RPC)
 
-* [Infura](https://infura.io)
->_API and developer tools provide secure, reliable, and scalable access to Ethereum and IPFS_
+* [Infura](https://infura.io)  
+`API and developer tools provide secure, reliable, and scalable access to Ethereum and IPFS`
 
-* [web3j](http://web3j.readthedocs.io/en/stable/infura.html)
->_Java and Android library for working with Smart Contracts and integrating with clients (nodes) on the Ethereum network_
+* [web3j](http://web3j.readthedocs.io/en/stable/infura.html)  
+`Java and Android library for working with Smart Contracts and integrating with clients (nodes) on the Ethereum network`
