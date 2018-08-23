@@ -4,12 +4,12 @@ contract MainShip {
     address public owner;
     uint[] coCount;
 
-    struct InitData {
-        uint256 amountBet;
-        uint256 numberSelected;
+    struct GamerInitData {
+        uint stateHash;
+        uint beat;        
     }
 
-    mapping(address => InitData) public gamersQueue;
+    mapping(address => GamerInitData) public gamerData;
     
     // конструктор
     constructor() public {
@@ -23,6 +23,14 @@ contract MainShip {
    //function IsPlayerExists() public constant returns(bool) {
    //   return gamersQueue[msg.sender];
    //}
+
+    function initNewGame(uint _stateHash, uint _beat) public payable {
+        GamerInitData init;
+
+        init.stateHash = _stateHash;
+        init.beat = _beat;        
+    }
+
 
     // запрос на начало новой игры
     function reqNewGame(uint[] _coCount) public payable {
