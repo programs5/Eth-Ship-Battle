@@ -1,40 +1,36 @@
 pragma solidity ^0.4.24;
 
 contract MainShip {
+    address public owner;
+    uint[] coCount;
 
-   uint[] coCount;
-
-   address public owner;
-
-   mapping(address => InitData) public gamersQueue;
-
-   struct InitData {
+    struct InitData {
         uint256 amountBet;
         uint256 numberSelected;
     }
 
-   // конструктор
-   constructor() public {
-      owner = msg.sender;
+    mapping(address => InitData) public gamersQueue;
+    
+    // конструктор
+    constructor() public {
+        owner = msg.sender;
 
-      coCount.push(1024);
-      coCount.push(1023);
-      coCount.push(1022);
-   }
+        coCount.push(1024);
+        coCount.push(1023);
+        coCount.push(1022);
+    }
 
    //function IsPlayerExists() public constant returns(bool) {
    //   return gamersQueue[msg.sender];
    //}
 
-   // запрос на начало новой игры
-   function reqNewGame(uint[] _coCount) public payable {
-      coCount = _coCount;
-      //require(IsPlayerExists);
-   }
+    // запрос на начало новой игры
+    function reqNewGame(uint[] _coCount) public payable {
+        coCount = _coCount;
+        //require(IsPlayerExists);
+    }
 
-   function getCount() public constant returns(uint)  {
-      return coCount.length;
-   }
-
-
+    function getCount() public view returns(uint){
+        return coCount.length;
+    }
 }
