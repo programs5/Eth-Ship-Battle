@@ -25,7 +25,7 @@ contract MainShip {
    //}
 
     function initNewGame(uint _stateHash, uint _beat) public payable {
-        GamerInitData init;
+        GamerInitData storage init;
 
         init.stateHash = _stateHash;
         init.beat = _beat;        
