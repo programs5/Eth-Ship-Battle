@@ -9,14 +9,14 @@
           "type": "address"
         }
       ],
-      "name": "gamersQueue",
+      "name": "gamerData",
       "outputs": [
         {
-          "name": "amountBet",
+          "name": "stateHash",
           "type": "uint256"
         },
         {
-          "name": "numberSelected",
+          "name": "beat",
           "type": "uint256"
         }
       ],
@@ -48,6 +48,24 @@
       "constant": false,
       "inputs": [
         {
+          "name": "_stateHash",
+          "type": "uint256"
+        },
+        {
+          "name": "_beat",
+          "type": "uint256"
+        }
+      ],
+      "name": "initNewGame",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
           "name": "_coCount",
           "type": "uint256[]"
         }
@@ -73,20 +91,20 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b5060008054600160a060020a03191633178155600180548082018255918190526104007fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf692830155805480820182556103ff9083015580548082019091556103fe910155610240806100836000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633d051e3881146100665780635ad4c542146100ad5780638da5cb5b146100f7578063a87d942c14610135575b600080fd5b34801561007257600080fd5b5061009473ffffffffffffffffffffffffffffffffffffffff6004351661015c565b6040805192835260208301919091528051918290030190f35b604080516020600480358082013583810280860185019096528085526100f5953695939460249493850192918291850190849080828437509497506101759650505050505050565b005b34801561010357600080fd5b5061010c61018c565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561014157600080fd5b5061014a6101a8565b60408051918252519081900360200190f35b6002602052600090815260409020805460019091015482565b80516101889060019060208401906101af565b5050565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b6001545b90565b8280548282559060005260206000209081019282156101ea579160200282015b828111156101ea5782518255916020019190600101906101cf565b506101f69291506101fa565b5090565b6101ac91905b808211156101f657600081556001016102005600a165627a7a72305820a8c98885d063a069489e68fbe63ca16bcc45020815e88b2cdc8cd519b95a70440029",
-  "deployedBytecode": "0x6080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416633d051e3881146100665780635ad4c542146100ad5780638da5cb5b146100f7578063a87d942c14610135575b600080fd5b34801561007257600080fd5b5061009473ffffffffffffffffffffffffffffffffffffffff6004351661015c565b6040805192835260208301919091528051918290030190f35b604080516020600480358082013583810280860185019096528085526100f5953695939460249493850192918291850190849080828437509497506101759650505050505050565b005b34801561010357600080fd5b5061010c61018c565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561014157600080fd5b5061014a6101a8565b60408051918252519081900360200190f35b6002602052600090815260409020805460019091015482565b80516101889060019060208401906101af565b5050565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b6001545b90565b8280548282559060005260206000209081019282156101ea579160200282015b828111156101ea5782518255916020019190600101906101cf565b506101f69291506101fa565b5090565b6101ac91905b808211156101f657600081556001016102005600a165627a7a72305820a8c98885d063a069489e68fbe63ca16bcc45020815e88b2cdc8cd519b95a70440029",
-  "sourceMap": "28:809:0:-;;;287:147;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;319:5:0;:18;;-1:-1:-1;;;;;;319:18:0;327:10;319:18;;;;27:10:-1;;23:18;;;45:23;;350:18:0;;;;363:4;350:18;;;;;27:10:-1;;23:18;;;45:23;;392:4:0;379:18;;;;27:10:-1;;23:18;;;45:23;;;421:4:0;408:18;;;28:809;;;;;;",
-  "deployedSourceMap": "28:809:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;196:47;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;196:47:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;616:125;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;616:125:0;;-1:-1:-1;616:125:0;;-1:-1:-1;;;;;;;616:125:0;;;53:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;53:20:0;;;;;;;;;;;;;;;;;;;;;;;749:85;;8:9:-1;5:2;;;30:1;27;20:12;5:2;749:85:0;;;;;;;;;;;;;;;;;;;;196:47;;;;;;;;;;;;;;;;;;;:::o;616:125::-;679:18;;;;:7;;:18;;;;;:::i;:::-;;616:125;:::o;53:20::-;;;;;;:::o;749:85::-;812:7;:14;749:85;;:::o;28:809::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;28:809:0;;;-1:-1:-1;28:809:0;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;",
-  "source": "pragma solidity ^0.4.24;\r\n\r\ncontract MainShip {\r\n    address public owner;\r\n    uint[] coCount;\r\n\r\n    struct InitData {\r\n        uint256 amountBet;\r\n        uint256 numberSelected;\r\n    }\r\n\r\n    mapping(address => InitData) public gamersQueue;\r\n    \r\n    // конструктор\r\n    constructor() public {\r\n        owner = msg.sender;\r\n\r\n        coCount.push(1024);\r\n        coCount.push(1023);\r\n        coCount.push(1022);\r\n    }\r\n\r\n   //function IsPlayerExists() public constant returns(bool) {\r\n   //   return gamersQueue[msg.sender];\r\n   //}\r\n\r\n    // запрос на начало новой игры\r\n    function reqNewGame(uint[] _coCount) public payable {\r\n        coCount = _coCount;\r\n        //require(IsPlayerExists);\r\n    }\r\n\r\n    function getCount() public view returns(uint){\r\n        return coCount.length;\r\n    }\r\n}",
-  "sourcePath": "C:\\_GIT_CLONE\\GitHub\\Eth-Ship-Battle-2\\ship-buttle\\contracts\\MainShip.sol",
+  "bytecode": "0x608060405234801561001057600080fd5b5060008054600160a060020a03191633178155600180548082018255918190526104007fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf692830155805480820182556103ff9083015580548082019091556103fe910155610264806100836000396000f30060806040526004361061006c5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635ad4c54281146100715780638a4cc832146100bb5780638da5cb5b14610102578063a87d942c14610140578063cf65f74d14610167575b600080fd5b604080516020600480358082013583810280860185019096528085526100b9953695939460249493850192918291850190849080828437509497506101759650505050505050565b005b3480156100c757600080fd5b506100e973ffffffffffffffffffffffffffffffffffffffff6004351661018c565b6040805192835260208301919091528051918290030190f35b34801561010e57600080fd5b506101176101a5565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561014c57600080fd5b506101556101c1565b60408051918252519081900360200190f35b6100b96004356024356101c8565b80516101889060019060208401906101d3565b5050565b6002602052600090815260409020805460019091015482565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b6001545b90565b600091909155600155565b82805482825590600052602060002090810192821561020e579160200282015b8281111561020e5782518255916020019190600101906101f3565b5061021a92915061021e565b5090565b6101c591905b8082111561021a57600081556001016102245600a165627a7a723058207dadde5723f59194057eb0af21fd7c1b9bcba7288d1b9c28b0f219709e2cddf70029",
+  "deployedBytecode": "0x60806040526004361061006c5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635ad4c54281146100715780638a4cc832146100bb5780638da5cb5b14610102578063a87d942c14610140578063cf65f74d14610167575b600080fd5b604080516020600480358082013583810280860185019096528085526100b9953695939460249493850192918291850190849080828437509497506101759650505050505050565b005b3480156100c757600080fd5b506100e973ffffffffffffffffffffffffffffffffffffffff6004351661018c565b6040805192835260208301919091528051918290030190f35b34801561010e57600080fd5b506101176101a5565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b34801561014c57600080fd5b506101556101c1565b60408051918252519081900360200190f35b6100b96004356024356101c8565b80516101889060019060208401906101d3565b5050565b6002602052600090815260409020805460019091015482565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b6001545b90565b600091909155600155565b82805482825590600052602060002090810192821561020e579160200282015b8281111561020e5782518255916020019190600101906101f3565b5061021a92915061021e565b5090565b6101c591905b8082111561021a57600081556001016102245600a165627a7a723058207dadde5723f59194057eb0af21fd7c1b9bcba7288d1b9c28b0f219709e2cddf70029",
+  "sourceMap": "28:1005:0:-;;;287:147;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;319:5:0;:18;;-1:-1:-1;;;;;;319:18:0;327:10;319:18;;;;27:10:-1;;23:18;;;45:23;;350:18:0;;;;363:4;350:18;;;;;27:10:-1;;23:18;;;45:23;;392:4:0;379:18;;;;27:10:-1;;23:18;;;45:23;;;421:4:0;408:18;;;28:1005;;;;;;",
+  "deployedSourceMap": "28:1005:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;812:125;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;812:125:0;;-1:-1:-1;812:125:0;;-1:-1:-1;;;;;;;812:125:0;;;193:50;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;193:50:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;53:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;53:20:0;;;;;;;;;;;;;;;;;;;;;;;945:85;;8:9:-1;5:2;;;30:1;27;20:12;5:2;945:85:0;;;;;;;;;;;;;;;;;;;;557:186;;;;;;;;812:125;875:18;;;;:7;;:18;;;;;:::i;:::-;;812:125;:::o;193:50::-;;;;;;;;;;;;;;;;;;;:::o;53:20::-;;;;;;:::o;945:85::-;1008:7;:14;945:85;;:::o;557:186::-;633:26;672:27;;;;710:9;:17;557:186::o;28:1005::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;28:1005:0;;;-1:-1:-1;28:1005:0;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;",
+  "source": "pragma solidity ^0.4.24;\r\n\r\ncontract MainShip {\r\n    address public owner;\r\n    uint[] coCount;\r\n\r\n    struct GamerInitData {\r\n        uint stateHash;\r\n        uint beat;        \r\n    }\r\n\r\n    mapping(address => GamerInitData) public gamerData;\r\n    \r\n    // конструктор\r\n    constructor() public {\r\n        owner = msg.sender;\r\n\r\n        coCount.push(1024);\r\n        coCount.push(1023);\r\n        coCount.push(1022);\r\n    }\r\n\r\n   //function IsPlayerExists() public constant returns(bool) {\r\n   //   return gamersQueue[msg.sender];\r\n   //}\r\n\r\n    function initNewGame(uint _stateHash, uint _beat) public payable {\r\n        GamerInitData storage init;\r\n\r\n        init.stateHash = _stateHash;\r\n        init.beat = _beat;        \r\n    }\r\n\r\n\r\n    // запрос на начало новой игры\r\n    function reqNewGame(uint[] _coCount) public payable {\r\n        coCount = _coCount;\r\n        //require(IsPlayerExists);\r\n    }\r\n\r\n    function getCount() public view returns(uint){\r\n        return coCount.length;\r\n    }\r\n}",
+  "sourcePath": "/Users/mac/Documents/GitHub/Eth-Ship-Battle/ship-buttle/contracts/MainShip.sol",
   "ast": {
-    "absolutePath": "/C/_GIT_CLONE/GitHub/Eth-Ship-Battle-2/ship-buttle/contracts/MainShip.sol",
+    "absolutePath": "/Users/mac/Documents/GitHub/Eth-Ship-Battle/ship-buttle/contracts/MainShip.sol",
     "exportedSymbols": {
       "MainShip": [
-        63
+        86
       ]
     },
-    "id": 64,
+    "id": 87,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -106,9 +124,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 63,
+        "id": 86,
         "linearizedBaseContracts": [
-          63
+          86
         ],
         "name": "MainShip",
         "nodeType": "ContractDefinition",
@@ -118,7 +136,7 @@
             "id": 3,
             "name": "owner",
             "nodeType": "VariableDeclaration",
-            "scope": 63,
+            "scope": 86,
             "src": "53:20:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -144,7 +162,7 @@
             "id": 6,
             "name": "coCount",
             "nodeType": "VariableDeclaration",
-            "scope": 63,
+            "scope": 86,
             "src": "80:14:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -176,16 +194,16 @@
             "visibility": "internal"
           },
           {
-            "canonicalName": "MainShip.InitData",
+            "canonicalName": "MainShip.GamerInitData",
             "id": 11,
             "members": [
               {
                 "constant": false,
                 "id": 8,
-                "name": "amountBet",
+                "name": "stateHash",
                 "nodeType": "VariableDeclaration",
                 "scope": 11,
-                "src": "130:17:0",
+                "src": "135:14:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -194,9 +212,9 @@
                 },
                 "typeName": {
                   "id": 7,
-                  "name": "uint256",
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "130:7:0",
+                  "src": "135:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -208,10 +226,10 @@
               {
                 "constant": false,
                 "id": 10,
-                "name": "numberSelected",
+                "name": "beat",
                 "nodeType": "VariableDeclaration",
                 "scope": 11,
-                "src": "158:22:0",
+                "src": "160:9:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -220,9 +238,9 @@
                 },
                 "typeName": {
                   "id": 9,
-                  "name": "uint256",
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "158:7:0",
+                  "src": "160:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -232,24 +250,24 @@
                 "visibility": "internal"
               }
             ],
-            "name": "InitData",
+            "name": "GamerInitData",
             "nodeType": "StructDefinition",
-            "scope": 63,
-            "src": "103:85:0",
+            "scope": 86,
+            "src": "103:82:0",
             "visibility": "public"
           },
           {
             "constant": false,
             "id": 15,
-            "name": "gamersQueue",
+            "name": "gamerData",
             "nodeType": "VariableDeclaration",
-            "scope": 63,
-            "src": "196:47:0",
+            "scope": 86,
+            "src": "193:50:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_InitData_$11_storage_$",
-              "typeString": "mapping(address => struct MainShip.InitData)"
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_GamerInitData_$11_storage_$",
+              "typeString": "mapping(address => struct MainShip.GamerInitData)"
             },
             "typeName": {
               "id": 14,
@@ -257,28 +275,28 @@
                 "id": 12,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "204:7:0",
+                "src": "201:7:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "196:28:0",
+              "src": "193:33:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_InitData_$11_storage_$",
-                "typeString": "mapping(address => struct MainShip.InitData)"
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_GamerInitData_$11_storage_$",
+                "typeString": "mapping(address => struct MainShip.GamerInitData)"
               },
               "valueType": {
                 "contractScope": null,
                 "id": 13,
-                "name": "InitData",
+                "name": "GamerInitData",
                 "nodeType": "UserDefinedTypeName",
                 "referencedDeclaration": 11,
-                "src": "215:8:0",
+                "src": "212:13:0",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_InitData_$11_storage_ptr",
-                  "typeString": "struct MainShip.InitData"
+                  "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                  "typeString": "struct MainShip.GamerInitData"
                 }
               }
             },
@@ -322,7 +340,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 78,
+                        "referencedDeclaration": 158,
                         "src": "327:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -601,7 +619,7 @@
               "parameters": [],
               "src": "308:0:0"
             },
-            "scope": 63,
+            "scope": 86,
             "src": "287:147:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -609,26 +627,275 @@
           },
           {
             "body": {
-              "id": 52,
+              "id": 64,
               "nodeType": "Block",
-              "src": "668:73:0",
+              "src": "622:121:0",
               "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 50,
+                      "name": "init",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 65,
+                      "src": "633:26:0",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                        "typeString": "struct MainShip.GamerInitData"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 49,
+                        "name": "GamerInitData",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 11,
+                        "src": "633:13:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                          "typeString": "struct MainShip.GamerInitData"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 51,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "633:26:0"
+                },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 50,
+                    "id": 56,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 48,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 52,
+                        "name": "init",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 50,
+                        "src": "672:4:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                          "typeString": "struct MainShip.GamerInitData storage pointer"
+                        }
+                      },
+                      "id": 54,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "stateHash",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 8,
+                      "src": "672:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 55,
+                      "name": "_stateHash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 44,
+                      "src": "689:10:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "672:27:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 57,
+                  "nodeType": "ExpressionStatement",
+                  "src": "672:27:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 62,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 58,
+                        "name": "init",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 50,
+                        "src": "710:4:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                          "typeString": "struct MainShip.GamerInitData storage pointer"
+                        }
+                      },
+                      "id": 60,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "beat",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 10,
+                      "src": "710:9:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 61,
+                      "name": "_beat",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 46,
+                      "src": "722:5:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "710:17:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 63,
+                  "nodeType": "ExpressionStatement",
+                  "src": "710:17:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 65,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "initNewGame",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 47,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44,
+                  "name": "_stateHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "578:15:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 43,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "578:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 46,
+                  "name": "_beat",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "595:10:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "595:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "577:29:0"
+            },
+            "payable": true,
+            "returnParameters": {
+              "id": 48,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "622:0:0"
+            },
+            "scope": 86,
+            "src": "557:186:0",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 75,
+              "nodeType": "Block",
+              "src": "864:73:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 73,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 71,
                       "name": "coCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 6,
-                      "src": "679:7:0",
+                      "src": "875:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                         "typeString": "uint256[] storage ref"
@@ -638,31 +905,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 49,
+                      "id": 72,
                       "name": "_coCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 45,
-                      "src": "689:8:0",
+                      "referencedDeclaration": 68,
+                      "src": "885:8:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
                         "typeString": "uint256[] memory"
                       }
                     },
-                    "src": "679:18:0",
+                    "src": "875:18:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                       "typeString": "uint256[] storage ref"
                     }
                   },
-                  "id": 51,
+                  "id": 74,
                   "nodeType": "ExpressionStatement",
-                  "src": "679:18:0"
+                  "src": "875:18:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 53,
+            "id": 76,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -670,16 +937,16 @@
             "name": "reqNewGame",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 46,
+              "id": 69,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 45,
+                  "id": 68,
                   "name": "_coCount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 53,
-                  "src": "636:15:0",
+                  "scope": 76,
+                  "src": "832:15:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -688,19 +955,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 43,
+                      "id": 66,
                       "name": "uint",
                       "nodeType": "ElementaryTypeName",
-                      "src": "636:4:0",
+                      "src": "832:4:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "id": 44,
+                    "id": 67,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "636:6:0",
+                    "src": "832:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -710,44 +977,44 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "635:17:0"
+              "src": "831:17:0"
             },
             "payable": true,
             "returnParameters": {
-              "id": 47,
+              "id": 70,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "668:0:0"
+              "src": "864:0:0"
             },
-            "scope": 63,
-            "src": "616:125:0",
+            "scope": 86,
+            "src": "812:125:0",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 61,
+              "id": 84,
               "nodeType": "Block",
-              "src": "794:40:0",
+              "src": "990:40:0",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "expression": {
                       "argumentTypes": null,
-                      "id": 58,
+                      "id": 81,
                       "name": "coCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 6,
-                      "src": "812:7:0",
+                      "src": "1008:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                         "typeString": "uint256[] storage ref"
                       }
                     },
-                    "id": 59,
+                    "id": 82,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
@@ -755,21 +1022,21 @@
                     "memberName": "length",
                     "nodeType": "MemberAccess",
                     "referencedDeclaration": null,
-                    "src": "812:14:0",
+                    "src": "1008:14:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 57,
-                  "id": 60,
+                  "functionReturnParameters": 80,
+                  "id": 83,
                   "nodeType": "Return",
-                  "src": "805:21:0"
+                  "src": "1001:21:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 62,
+            "id": 85,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -777,23 +1044,23 @@
             "name": "getCount",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 54,
+              "id": 77,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "766:2:0"
+              "src": "962:2:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 57,
+              "id": 80,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 56,
+                  "id": 79,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 62,
-                  "src": "789:4:0",
+                  "scope": 85,
+                  "src": "985:4:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -801,10 +1068,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 55,
+                    "id": 78,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "789:4:0",
+                    "src": "985:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -814,29 +1081,29 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "788:6:0"
+              "src": "984:6:0"
             },
-            "scope": 63,
-            "src": "749:85:0",
+            "scope": 86,
+            "src": "945:85:0",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 64,
-        "src": "28:809:0"
+        "scope": 87,
+        "src": "28:1005:0"
       }
     ],
-    "src": "0:837:0"
+    "src": "0:1033:0"
   },
   "legacyAST": {
-    "absolutePath": "/C/_GIT_CLONE/GitHub/Eth-Ship-Battle-2/ship-buttle/contracts/MainShip.sol",
+    "absolutePath": "/Users/mac/Documents/GitHub/Eth-Ship-Battle/ship-buttle/contracts/MainShip.sol",
     "exportedSymbols": {
       "MainShip": [
-        63
+        86
       ]
     },
-    "id": 64,
+    "id": 87,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -856,9 +1123,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 63,
+        "id": 86,
         "linearizedBaseContracts": [
-          63
+          86
         ],
         "name": "MainShip",
         "nodeType": "ContractDefinition",
@@ -868,7 +1135,7 @@
             "id": 3,
             "name": "owner",
             "nodeType": "VariableDeclaration",
-            "scope": 63,
+            "scope": 86,
             "src": "53:20:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -894,7 +1161,7 @@
             "id": 6,
             "name": "coCount",
             "nodeType": "VariableDeclaration",
-            "scope": 63,
+            "scope": 86,
             "src": "80:14:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -926,16 +1193,16 @@
             "visibility": "internal"
           },
           {
-            "canonicalName": "MainShip.InitData",
+            "canonicalName": "MainShip.GamerInitData",
             "id": 11,
             "members": [
               {
                 "constant": false,
                 "id": 8,
-                "name": "amountBet",
+                "name": "stateHash",
                 "nodeType": "VariableDeclaration",
                 "scope": 11,
-                "src": "130:17:0",
+                "src": "135:14:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -944,9 +1211,9 @@
                 },
                 "typeName": {
                   "id": 7,
-                  "name": "uint256",
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "130:7:0",
+                  "src": "135:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -958,10 +1225,10 @@
               {
                 "constant": false,
                 "id": 10,
-                "name": "numberSelected",
+                "name": "beat",
                 "nodeType": "VariableDeclaration",
                 "scope": 11,
-                "src": "158:22:0",
+                "src": "160:9:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -970,9 +1237,9 @@
                 },
                 "typeName": {
                   "id": 9,
-                  "name": "uint256",
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "158:7:0",
+                  "src": "160:4:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -982,24 +1249,24 @@
                 "visibility": "internal"
               }
             ],
-            "name": "InitData",
+            "name": "GamerInitData",
             "nodeType": "StructDefinition",
-            "scope": 63,
-            "src": "103:85:0",
+            "scope": 86,
+            "src": "103:82:0",
             "visibility": "public"
           },
           {
             "constant": false,
             "id": 15,
-            "name": "gamersQueue",
+            "name": "gamerData",
             "nodeType": "VariableDeclaration",
-            "scope": 63,
-            "src": "196:47:0",
+            "scope": 86,
+            "src": "193:50:0",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_InitData_$11_storage_$",
-              "typeString": "mapping(address => struct MainShip.InitData)"
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_GamerInitData_$11_storage_$",
+              "typeString": "mapping(address => struct MainShip.GamerInitData)"
             },
             "typeName": {
               "id": 14,
@@ -1007,28 +1274,28 @@
                 "id": 12,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "204:7:0",
+                "src": "201:7:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "196:28:0",
+              "src": "193:33:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_InitData_$11_storage_$",
-                "typeString": "mapping(address => struct MainShip.InitData)"
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_GamerInitData_$11_storage_$",
+                "typeString": "mapping(address => struct MainShip.GamerInitData)"
               },
               "valueType": {
                 "contractScope": null,
                 "id": 13,
-                "name": "InitData",
+                "name": "GamerInitData",
                 "nodeType": "UserDefinedTypeName",
                 "referencedDeclaration": 11,
-                "src": "215:8:0",
+                "src": "212:13:0",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_InitData_$11_storage_ptr",
-                  "typeString": "struct MainShip.InitData"
+                  "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                  "typeString": "struct MainShip.GamerInitData"
                 }
               }
             },
@@ -1072,7 +1339,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 78,
+                        "referencedDeclaration": 158,
                         "src": "327:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1351,7 +1618,7 @@
               "parameters": [],
               "src": "308:0:0"
             },
-            "scope": 63,
+            "scope": 86,
             "src": "287:147:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1359,26 +1626,275 @@
           },
           {
             "body": {
-              "id": 52,
+              "id": 64,
               "nodeType": "Block",
-              "src": "668:73:0",
+              "src": "622:121:0",
               "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 50,
+                      "name": "init",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 65,
+                      "src": "633:26:0",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                        "typeString": "struct MainShip.GamerInitData"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 49,
+                        "name": "GamerInitData",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 11,
+                        "src": "633:13:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                          "typeString": "struct MainShip.GamerInitData"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 51,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "633:26:0"
+                },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 50,
+                    "id": 56,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 48,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 52,
+                        "name": "init",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 50,
+                        "src": "672:4:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                          "typeString": "struct MainShip.GamerInitData storage pointer"
+                        }
+                      },
+                      "id": 54,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "stateHash",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 8,
+                      "src": "672:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 55,
+                      "name": "_stateHash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 44,
+                      "src": "689:10:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "672:27:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 57,
+                  "nodeType": "ExpressionStatement",
+                  "src": "672:27:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 62,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 58,
+                        "name": "init",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 50,
+                        "src": "710:4:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_GamerInitData_$11_storage_ptr",
+                          "typeString": "struct MainShip.GamerInitData storage pointer"
+                        }
+                      },
+                      "id": 60,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "beat",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 10,
+                      "src": "710:9:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 61,
+                      "name": "_beat",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 46,
+                      "src": "722:5:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "710:17:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 63,
+                  "nodeType": "ExpressionStatement",
+                  "src": "710:17:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 65,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "initNewGame",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 47,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44,
+                  "name": "_stateHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "578:15:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 43,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "578:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 46,
+                  "name": "_beat",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 65,
+                  "src": "595:10:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 45,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "595:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "577:29:0"
+            },
+            "payable": true,
+            "returnParameters": {
+              "id": 48,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "622:0:0"
+            },
+            "scope": 86,
+            "src": "557:186:0",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 75,
+              "nodeType": "Block",
+              "src": "864:73:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 73,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 71,
                       "name": "coCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 6,
-                      "src": "679:7:0",
+                      "src": "875:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                         "typeString": "uint256[] storage ref"
@@ -1388,31 +1904,31 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 49,
+                      "id": 72,
                       "name": "_coCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 45,
-                      "src": "689:8:0",
+                      "referencedDeclaration": 68,
+                      "src": "885:8:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
                         "typeString": "uint256[] memory"
                       }
                     },
-                    "src": "679:18:0",
+                    "src": "875:18:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                       "typeString": "uint256[] storage ref"
                     }
                   },
-                  "id": 51,
+                  "id": 74,
                   "nodeType": "ExpressionStatement",
-                  "src": "679:18:0"
+                  "src": "875:18:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 53,
+            "id": 76,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -1420,16 +1936,16 @@
             "name": "reqNewGame",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 46,
+              "id": 69,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 45,
+                  "id": 68,
                   "name": "_coCount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 53,
-                  "src": "636:15:0",
+                  "scope": 76,
+                  "src": "832:15:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1438,19 +1954,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 43,
+                      "id": 66,
                       "name": "uint",
                       "nodeType": "ElementaryTypeName",
-                      "src": "636:4:0",
+                      "src": "832:4:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "id": 44,
+                    "id": 67,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "636:6:0",
+                    "src": "832:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
                       "typeString": "uint256[]"
@@ -1460,44 +1976,44 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "635:17:0"
+              "src": "831:17:0"
             },
             "payable": true,
             "returnParameters": {
-              "id": 47,
+              "id": 70,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "668:0:0"
+              "src": "864:0:0"
             },
-            "scope": 63,
-            "src": "616:125:0",
+            "scope": 86,
+            "src": "812:125:0",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 61,
+              "id": 84,
               "nodeType": "Block",
-              "src": "794:40:0",
+              "src": "990:40:0",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
                     "expression": {
                       "argumentTypes": null,
-                      "id": 58,
+                      "id": 81,
                       "name": "coCount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 6,
-                      "src": "812:7:0",
+                      "src": "1008:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                         "typeString": "uint256[] storage ref"
                       }
                     },
-                    "id": 59,
+                    "id": 82,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
@@ -1505,21 +2021,21 @@
                     "memberName": "length",
                     "nodeType": "MemberAccess",
                     "referencedDeclaration": null,
-                    "src": "812:14:0",
+                    "src": "1008:14:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 57,
-                  "id": 60,
+                  "functionReturnParameters": 80,
+                  "id": 83,
                   "nodeType": "Return",
-                  "src": "805:21:0"
+                  "src": "1001:21:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 62,
+            "id": 85,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1527,23 +2043,23 @@
             "name": "getCount",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 54,
+              "id": 77,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "766:2:0"
+              "src": "962:2:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 57,
+              "id": 80,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 56,
+                  "id": 79,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 62,
-                  "src": "789:4:0",
+                  "scope": 85,
+                  "src": "985:4:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1551,10 +2067,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 55,
+                    "id": 78,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "789:4:0",
+                    "src": "985:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1564,20 +2080,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "788:6:0"
+              "src": "984:6:0"
             },
-            "scope": 63,
-            "src": "749:85:0",
+            "scope": 86,
+            "src": "945:85:0",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 64,
-        "src": "28:809:0"
+        "scope": 87,
+        "src": "28:1005:0"
       }
     ],
-    "src": "0:837:0"
+    "src": "0:1033:0"
   },
   "compiler": {
     "name": "solc",
@@ -1604,5 +2120,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-23T11:10:19.175Z"
+  "updatedAt": "2018-08-23T21:06:37.301Z"
 }
