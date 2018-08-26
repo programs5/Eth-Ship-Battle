@@ -2,54 +2,57 @@ pragma solidity ^0.4.24;
 
 contract MainShip {
     address public owner;
-
-    uint[] coCount;
-
-    // очередь ожидающих начала игры 
-    GamerInitData[] waitingQueue;
-
-    struct GamerInitData {
-        address gamer;
+        
+    GamerData[] gameList;
+    mapping(address => uint[]) idxGamer;
+    
+    // игровые данные участника
+    struct GamerData {
+        address addr;
         uint stateHash; // хешь от суммы цифр которые обозначают данные по каждому кораблю игрока
-        uint beat;      // размер ставки игрока   
+        uint bet;      // размер ставки игрока   
+        bool inGame; // true если пользователь находится в игре
+        bool gameIsOver; // true если игра завершилась
     }
-
-    mapping(address => GamerInitData[2]) public gamerData;
     
     // конструктор
     constructor() public {
         owner = msg.sender;
+        
+        // require(owner != address(0), "");
     }
     
-    // инициализируем новое обращение от игрока
-    function initNewGame(uint _stateHash, uint _beat) public payable {
-        require(_beat > 0, "Размер ставки должен быть больше нуля");
+    // обрабатываем входящий запрос на начало игры
+    function initNewGame(uint _stateHash, uint _bet) public payable {
+        require(_bet > 0, "Размер ставки должен быть больше нуля");
 
-        if(waitingQueue.length == 0){
-            // если не с кем играть, добавляем игрока в очередь
-            waitingQueue.push(GamerInitData(msg.sender,  _stateHash, _beat));
+        // если длина массива четная (свободных игроков нет) добавляем нового игрока в список ожидания
+        if(gameList.length % 2 != 0){
+            gameList.push(GamerData(msg.sender,  _stateHash, _bet, false, false));
+            idxGamer[msg.sender].push(gameList.length-1);
         }
+        // если нечетное, кто то ждет игры
         else{
-            // если в очереди уже есть игрок в статусе ожидания
-
-
-
+            require(gameList[gameList.length-1].addr != msg.sender, "Нельзя играть самому с собой");
+            // отмечаем что ожидавшему игроку нашлась пара и он начинает играть
+            gameList[gameList.length-1].inGame = true; 
+            // добавляем второго игрока
+            gameList.push(GamerData(msg.sender,  _stateHash, _bet, true, false));
+            idxGamer[msg.sender].push(gameList.length-1);
         }
-
-        GamerInitData storage init;
-
-        init.stateHash = _stateHash;
-        init.beat = _beat;        
     }
 
 
-    // запрос на начало новой игры
-    function reqNewGame(uint[] _coCount) public payable {
-        coCount = _coCount;
-        //require(IsPlayerExists);
-    }
 
+    
     function getCount() public view returns(uint){
-        return coCount.length;
+        //if(gameList.length > 0){
+        //    //\return gameList.length;
+        //    
+        //}
+        return gameList.length;
+        
     }
+    
+    
 }
