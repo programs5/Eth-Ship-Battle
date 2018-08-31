@@ -4,6 +4,7 @@ contract MainShip {
     address public owner;
 
     uint[] coCount;
+    // OOOO
 
     // очередь ожидающих начала игры 
     GamerInitData[] waitingQueue;
